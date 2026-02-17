@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Administrative Design System - 2026 */
+
+    /* BASE LAYER - "VISA WHITE" (Light Mode - Corporate/Clean) */
+    --color-bg-MAIN: #ffffff;
+    /* Pure white canvas */
+    --color-bg-SURFACE: #f8fafc;
+    /* Cool grey surface for panels */
+    --color-bg-ELEVATED: #ffffff;
+    /* Cards */
+
+    --color-text-MAIN: #0f172a;
+    /* Deep navy-black for readability */
+    --color-text-MUTED: #64748b;
+    /* Slate grey for metadata */
+
+    --color-BORDER: #e2e8f0;
+    /* Subtle border */
+
+    --color-ACCENT: #0f172a;
+    /* Executive Black/Navy */
+    --color-ACCENT-text: #ffffff;
+
+    --color-SUCCESS: #10b981;
+    --color-WARNING: #f59e0b;
+    --color-DANGER: #ef4444;
+
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Oswald', sans-serif;
+    /* For "REPUBLIC OF KENYA" headers */
+}
+
+/* DARK MODE - "SITUATION ROOM" */
+:root.dark {
+    --color-bg-MAIN: #09090b;
+    /* Void black */
+    --color-bg-SURFACE: #18181b;
+    /* Zinc-900 */
+    --color-bg-ELEVATED: #27272a;
+    /* Zinc-800 */
+
+    --color-text-MAIN: #f8fafc;
+    --color-text-MUTED: #a1a1aa;
+
+    --color-BORDER: #27272a;
+
+    --color-ACCENT: #fafafa;
+    /* White accent in dark mode */
+    --color-ACCENT-text: #000000;
+}
+
+/* THEME: "KENYA" (Government/Official) */
+:root.kenya {
+    --color-bg-MAIN: #fefce8;
+    /* Very subtle cream/parchment */
+    --color-bg-SURFACE: #fff7ed;
+    /* Warm paper */
+
+    --color-text-MAIN: #431407;
+    /* Deep brown/black */
+
+    --color-BORDER: #fdba74;
+    /* Muted orange border */
+
+    --color-ACCENT: #9f1239;
+    /* Coat of Arms Red */
+    --color-ACCENT-text: #ffffff;
+}
+
+body {
+    background-color: var(--color-bg-MAIN);
+    color: var(--color-text-MAIN);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* UTILITIES */
+.font-ocr {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* GLOBAL RESET: NO ROUNDED CORNERS */
+* {
+    border-radius: 0px !important;
+}

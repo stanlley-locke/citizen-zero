@@ -1,0 +1,62 @@
+citizen-zero/
+│
+├── 📱 flutter/                          # Mobile Applications (Android/iOS)
+│   ├── citizen_wallet/                  # Citizen Digital ID Wallet
+│   ├── verifier_app/                    # Police/Bank Verifier App
+│   ├── shared/                          # Shared Flutter packages
+│   └── README.md                        # Flutter setup instructions
+│
+├── 🖥️ backend/                          # Django Backend Services
+│   ├── services/                        # Microservices
+│   ├── iprs-mock/                       # Mock IPRS for Testing
+│   ├── docker/                          # Docker & Kubernetes configs
+│   ├── scripts/                         # Deployment & utility scripts
+│   └── README.md                        # Backend setup instructions
+│
+├── 🌐 web/                              # React Web Applications
+│   ├── admin-dashboard/                 # Government Admin Portal
+│   ├── employer-portal/                 # Employer KYC Portal
+│   ├── worker-dashboard/                # Huduma Agent Dashboard
+│   └── README.md                        # Web apps setup
+│
+├── 💻 desktop/                          # PyQt6 Desktop Application
+│   ├── super_admin/                     # Super Admin GUI
+│   ├── system_config/                   # System Configuration Tool
+│   └── README.md                        # Desktop app setup
+│
+├── 🖥️ cli/                              # Command-Line Interface
+│   ├── admin_cli/                       # Admin CLI Tool
+│   ├── ops_cli/                         # Operations CLI
+│   └── README.md                        # CLI usage guide
+│
+├── 📚 docs/                             # Project Documentation
+│   ├── architecture/                    # System architecture diagrams
+│   ├── api/                             # API documentation
+│   ├── security/                        # Security policies
+│   └── user_guides/                     # User manuals
+│
+├── 🧪 tests/                            # Test Suites
+│   ├── flutter_tests/                   # Flutter widget/integration tests
+│   ├── backend_tests/                   # Django unit/integration tests
+│   ├── e2e_tests/                       # End-to-end tests
+│   └── README.md                        # Testing guide
+│
+├── 📊 data/                             # Test Data & Mock Datasets
+│   ├── biometric_samples/               # Sample biometric data
+│   ├── citizen_profiles/                # Mock citizen profiles
+│   └── README.md                        # Test data guide
+│
+├── 🛠️ scripts/                          # Utility Scripts
+│   ├── setup/                           # Environment setup scripts
+│   ├── deployment/                      # Deployment automation
+│   └── maintenance/                     # System maintenance scripts
+│
+├── 📄 .github/                          # GitHub workflows
+│   ├── workflows/                       # CI/CD pipelines
+│   └── ISSUE_TEMPLATE/                  # Issue templates
+│
+├── 📄 .env.example                       # Environment variables template
+├── 📄 docker-compose.yml                 # Root Docker Compose
+├── 📄 Makefile                           # Common commands
+├── 📄 README.md                          # Project overview
+└── 📄 LICENSE                            # License file

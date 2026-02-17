@@ -1,0 +1,16 @@
+{
+    "network": {
+        "auth_service": "http://127.0.0.1:8000/",
+        "id_service": "http://127.0.0.1:8001/",
+        "verify_service": "http://127.0.0.1:8002/",
+        "audit_service": "http://127.0.0.1:8003/",
+        "monitor_service": "http://127.0.0.1:8006/"
+    },
+    "system": {
+        "debug_mode": "True",
+        "maintenance_mode": "False",
+        "refresh_rate_sec": "5",
+        "max_connections": "100",
+        "admin_email": "admin@citizen.gov"
+    }
+}

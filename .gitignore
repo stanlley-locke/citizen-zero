@@ -1,0 +1,244 @@
+ 
+# 1. ENVIRONMENT VARIABLES & SECRETS (CRITICAL)
+ 
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.cert
+*.pkpass
+secrets.json
+credentials.json
+# Ignore local SSH/auth keys
+id_rsa
+id_rsa.pub
+
+ 
+# 2. NODE.JS, TYPESCRIPT & FRONTEND
+ 
+node_modules/
+jspm_packages/
+.npm
+.eslintcache
+.stylelintcache
+.node_repl_history
+*.tgz
+
+# Build directories
+dist/
+out/
+build/
+.tsbuildinfo
+
+# Framework-specific (React, Next.js, Nuxt, Vue)
+.next/
+.nuxt/
+.cache/
+.vuepress/dist
+.serverless/
+.netlify/
+
+# Yarn / Pnpm
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnpm-debug.log*
+
+ 
+# 3. PYTHON, DJANGO & FLASK
+ 
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+Pipfile.lock
+poetry.lock
+!requirements.txt
+
+# Packages and Distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Web Frameworks (Django / Flask)
+*.sqlite3
+db.sqlite3
+instance/
+.webassets-cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+ipython_config.py
+
+ 
+# 4. AI, MACHINE LEARNING & DATA
+ 
+# Model Weights & Binaries
+*.pt
+*.pth
+*.onnx
+*.gguf
+*.bin
+*.h5
+*.pb
+*.ckpt
+
+# Datasets and Logs
+data/
+datasets/
+logs/
+tensorboard_logs/
+wandb/
+!data/.gitkeep
+
+ 
+# 5. C, C++ & ARDUINO
+ 
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# C/C++ Build Folders
+build/
+out/
+bin/
+
+# Arduino
+.arduino15/
+build-*/
+
+ 
+# 6. FLUTTER & DART
+ 
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+# Symbol directories
+app.dSYM
+# Flutter-specific
+.flutter-plugins
+.flutter-plugins-dependencies
+**/.generated/
+
+ 
+# 7. BLOCKCHAIN & SMART CONTRACTS
+ 
+# Hardhat / Truffle
+artifacts/
+cache/
+typechain/
+typechain-types/
+build/contracts/
+# Local test nodes
+coverage/
+coverage.json
+
+ 
+# 8. CLOUD, DEVOPS & INFRASTRUCTURE
+ 
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.tfstate.lock.info
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# AWS/GCP/Azure local configs
+.aws/
+.gcp/
+.azure/
+
+ 
+# 9. IDEs, EDITORS & OS FILES
+ 
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (IntelliJ, PyCharm, WebStorm)
+.idea/
+*.iml
+cmake-build-*/
+
+# Vim / Emacs
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# Mac OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/

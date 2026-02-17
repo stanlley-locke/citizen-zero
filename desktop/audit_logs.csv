@@ -1,0 +1,38 @@
+Timestamp,Severity,Action,User ID,Details,IP
+2026-02-02T14:40:49,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T14:37:39,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T14:32:41,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T14:29:01,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T14:07:15,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T14:00:06,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:55:23,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:50:46,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:43:06,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:33:07,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:30:27,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:28:24,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:27:14,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:18:53,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:15:41,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:09:52,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:07:33,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T13:04:12,INFO,ADMIN_LOGIN,admin,Admin admin logged in via Desktop App,127.0.0.1
+2026-02-02T11:32:51,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T11:15:32,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T11:03:01,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T11:01:50,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:48:54,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:47:48,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:43:51,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:39:47,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:35:02,INFO,LOGIN,12345678,User 12345678 logged in successfully,127.0.0.1
+2026-02-02T10:14:15,INFO,ISSUE_ID,12345678,Digital ID Issuance (Maisha Namba),192.168.1.190
+2026-02-02T07:17:14,INFO,ISSUE_ID,12345678,Digital ID Issuance (Maisha Namba),192.168.1.194
+2026-02-02T00:26:14,INFO,VERIFY_ID,12345678,ID Verification by Third Party,192.168.1.13
+2026-02-02T00:24:14,INFO,LOGOUT,12345678,User Logout,192.168.1.187
+2026-02-01T23:57:14,INFO,LOGOUT,12345678,User Logout,192.168.1.25
+2026-02-01T03:39:14,INFO,LOGOUT,12345678,User Logout,192.168.1.30
+2026-02-01T02:17:14,INFO,LOGOUT,12345678,User Logout,192.168.1.169
+2026-02-01T01:58:14,INFO,VERIFY_ID,12345678,ID Verification by Third Party,192.168.1.208
+2026-02-01T01:27:14,INFO,LOGOUT,12345678,User Logout,192.168.1.231
+2026-01-31T23:44:14,INFO,LOGOUT,12345678,User Logout,192.168.1.204

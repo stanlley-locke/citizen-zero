@@ -1,0 +1,141 @@
+web/
+│
+├── admin-dashboard/                     # Government Admin Portal
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   │
+│   ├── src/
+│   │   ├── components/                  # Reusable components
+│   │   │   ├── common/
+│   │   │   ├── layout/
+│   │   │   ├── forms/
+│   │   │   └── charts/
+│   │   │
+│   │   ├── pages/                       # Page components
+│   │   │   ├── dashboard/
+│   │   │   │   ├── Overview.jsx
+│   │   │   │   ├── Analytics.jsx
+│   │   │   │   └── Metrics.jsx
+│   │   │   ├── citizens/
+│   │   │   │   ├── ListCitizens.jsx
+│   │   │   │   ├── ViewCitizen.jsx
+│   │   │   │   └── EditCitizen.jsx
+│   │   │   ├── ids/
+│   │   │   │   ├── ManageIDs.jsx
+│   │   │   │   ├── IssueID.jsx
+│   │   │   │   └── RevokeID.jsx
+│   │   │   ├── verifications/
+│   │   │   │   ├── VerificationLogs.jsx
+│   │   │   │   └── VerificationAnalytics.jsx
+│   │   │   ├── biometrics/
+│   │   │   │   ├── BiometricLogs.jsx
+│   │   │   │   └── BiometricAnalytics.jsx
+│   │   │   ├── audit/
+│   │   │   │   ├── AuditTrail.jsx
+│   │   │   │   └── ComplianceReports.jsx
+│   │   │   ├── settings/
+│   │   │   │   ├── SystemSettings.jsx
+│   │   │   │   ├── SecuritySettings.jsx
+│   │   │   │   └── UserManagement.jsx
+│   │   │   └── reports/
+│   │   │       ├── GenerateReport.jsx
+│   │   │       └── ViewReports.jsx
+│   │   │
+│   │   ├── services/                    # API services
+│   │   │   ├── api.js                   # API client
+│   │   │   ├── auth.js
+│   │   │   ├── citizens.js
+│   │   │   ├── ids.js
+│   │   │   ├── verifications.js
+│   │   │   ├── biometrics.js
+│   │   │   ├── audit.js
+│   │   │   └── reports.js
+│   │   │
+│   │   ├── store/                       # State management (Redux/Zustand)
+│   │   │   ├── slices/
+│   │   │   ├── store.js
+│   │   │   └── hooks.js
+│   │   │
+│   │   ├── utils/                       # Utility functions
+│   │   │   ├── helpers.js
+│   │   │   ├── validators.js
+│   │   │   └── formatters.js
+│   │   │
+│   │   ├── hooks/                       # Custom hooks
+│   │   │   ├── useAuth.js
+│   │   │   ├── useApi.js
+│   │   │   └── usePagination.js
+│   │   │
+│   │   ├── context/                     # React context
+│   │   │   ├── AuthContext.js
+│   │   │   └── ThemeContext.js
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── index.js
+│   │   └── styles.css
+│   │
+│   ├── package.json
+│   ├── webpack.config.js
+│   ├── .env.example
+│   └── README.md
+│
+├── employer-portal/                     # Employer KYC Portal
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   │   ├── dashboard/
+│   │   │   ├── kyc/
+│   │   │   │   ├── EmployeeKYC.jsx
+│   │   │   │   ├── BulkUpload.jsx
+│   │   │   │   └── KYCHistory.jsx
+│   │   │   ├── verification/
+│   │   │   │   ├── VerifyEmployee.jsx
+│   │   │   │   └── VerificationResults.jsx
+│   │   │   └── reports/
+│   │   │       ├── ComplianceReport.jsx
+│   │   │       └── EmployeeList.jsx
+│   │   ├── services/
+│   │   ├── store/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+│
+├── worker-dashboard/                    # Huduma Agent Dashboard
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   │   ├── dashboard/
+│   │   │   ├── registration/
+│   │   │   │   ├── RegisterCitizen.jsx
+│   │   │   │   └── BiometricCapture.jsx
+│   │   │   ├── verification/
+│   │   │   │   ├── VerifyID.jsx
+│   │   │   │   └── OfflineVerification.jsx
+│   │   │   └── recovery/
+│   │   │       ├── RecoverID.jsx
+│   │   │       └── RecoveryHistory.jsx
+│   │   ├── services/
+│   │   ├── store/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+│
+├── shared/                              # Shared components & utilities
+│   ├── components/
+│   ├── utils/
+│   ├── hooks/
+│   ├── constants.js
+│   └── package.json
+│
+├── package.json                         # Root package.json
+├── lerna.json                           # Monorepo configuration
+├── README.md                            # Web apps documentation
+└── .env.example

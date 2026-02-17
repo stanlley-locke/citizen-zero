@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # --- Core Infrastructure ---
+  postgres:
+    image: postgres:15-alpine
+    container_name: citizen_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: citizen_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - citizen_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: citizen_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - citizen_net
+
+  # --- Microservices ---
+  auth-service:
+    build:
+      context: ../services/auth-service
+      dockerfile: Dockerfile
+    container_name: auth_service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/citizen_db
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - citizen_net
+
+  id-service:
+    build:
+      context: ../services/id-service
+      dockerfile: Dockerfile
+    container_name: id_service
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/citizen_db
+    depends_on:
+      - postgres
+    networks:
+      - citizen_net
+
+  verify-service:
+    build:
+      context: ../services/verify-service
+      dockerfile: Dockerfile
+    container_name: verify_service
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/citizen_db
+    depends_on:
+      - postgres
+    networks:
+      - citizen_net
+
+  biometric-service:
+    build:
+      context: ../services/biometric-service
+      dockerfile: Dockerfile
+    container_name: biometric_service
+    ports:
+      - "8003:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/citizen_db
+    depends_on:
+      - postgres
+    networks:
+      - citizen_net
+
+  audit-service:
+    build:
+      context: ../services/audit-service
+      dockerfile: Dockerfile
+    container_name: audit_service
+    ports:
+      - "8004:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/citizen_db
+    depends_on:
+      - postgres
+    networks:
+      - citizen_net
+
+  # --- Mock External Systems ---
+  iprs-mock:
+    image: python:3.10-slim
+    container_name: iprs_mock
+    working_dir: /app
+    volumes:
+      - ../iprs-mock:/app
+    command: python -m http.server 8005
+    ports:
+      - "8005:8005"
+    networks:
+      - citizen_net
+
+networks:
+  citizen_net:
+    driver: bridge
+
+volumes:
+  postgres_data:

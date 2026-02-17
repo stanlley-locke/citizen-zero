@@ -1,0 +1,155 @@
+version: '3.8'
+
+services:
+  # Database Service (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: citizen_zero_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-citizenzero}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cz_network
+
+  # Cache & Broker Service (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: citizen_zero_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - cz_network
+
+  # Object Storage (MinIO)
+  minio:
+    image: minio/minio:latest
+    container_name: citizen_zero_minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - cz_network
+
+  # Mock IPRS Service
+  iprs-mock:
+    build:
+      context: ./backend/iprs-mock
+      dockerfile: Dockerfile
+    container_name: citizen_zero_iprs_mock
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/iprs-mock:/app
+    ports:
+      - "8001:8000"
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dev_secret_key
+    networks:
+      - cz_network
+
+  # Biometric Service (API)
+  biometric-service:
+    build:
+      context: ./backend/services/biometric-service
+      dockerfile: Dockerfile
+    container_name: citizen_zero_biometric_api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/services/biometric-service:/app
+    ports:
+      - "8002:8000"
+    environment:
+      - DEBUG=1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+    networks:
+      - cz_network
+
+  # Celery Worker for Biometrics
+  celery-worker:
+    build:
+      context: ./backend/services/biometric-service
+      dockerfile: Dockerfile
+    container_name: citizen_zero_celery_worker
+    command: celery -A biometric_service worker --loglevel=info
+    volumes:
+      - ./backend/services/biometric-service:/app
+    environment:
+      - DEBUG=1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - redis
+      - biometric-service
+    networks:
+      - cz_network
+
+  # ID Service
+  id-service:
+    build:
+      context: ./backend/services/id-service
+      dockerfile: Dockerfile
+    container_name: citizen_zero_id_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/services/id-service:/app
+    ports:
+      - "8003:8000"
+    environment:
+      - DEBUG=1
+    networks:
+      - cz_network
+
+  # Verify Service
+  verify-service:
+    build:
+      context: ./backend/services/verify-service
+      dockerfile: Dockerfile
+    container_name: citizen_zero_verify_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/services/verify-service:/app
+    ports:
+      - "8004:8000"
+    environment:
+      - DEBUG=1
+    networks:
+      - cz_network
+
+  # Audit Service
+  audit-service:
+    build:
+      context: ./backend/services/audit-service
+      dockerfile: Dockerfile
+    container_name: citizen_zero_audit_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/services/audit-service:/app
+    ports:
+      - "8005:8000"
+    environment:
+      - DEBUG=1
+    networks:
+      - cz_network
+
+volumes:
+  postgres_data:
+  minio_data:
+
+
+networks:
+  cz_network:
+    driver: bridge

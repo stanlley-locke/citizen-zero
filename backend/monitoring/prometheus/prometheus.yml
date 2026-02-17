@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'citizen_zero_services'
+    static_configs:
+      - targets: ['auth-service:8000', 'id-service:8000', 'verify-service:8000']

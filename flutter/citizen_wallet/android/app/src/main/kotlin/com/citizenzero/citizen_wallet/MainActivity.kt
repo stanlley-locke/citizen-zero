@@ -1,0 +1,7 @@
+package com.citizenzero.citizen_wallet
+
+import io.flutter.embedding.android.FlutterFragmentActivity
+
+class MainActivity: FlutterFragmentActivity() {
+    // FragmentActivity required for biometric_auth
+}

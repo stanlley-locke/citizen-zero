@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* DEFAULT: "Visa Card" Light Theme - High Contrast */
+    --color-bg-MAIN: #FFFFFF;
+    --color-bg-SURFACE: #F3F4F6;
+    --color-BORDER: #E5E7EB;
+    --color-text-MAIN: #000000;
+    --color-text-MUTED: #4B5563;
+    --color-ACCENT: #000000;
+    --color-ACCENT-text: #FFFFFF;
+  }
+
+  /* DARK MODE */
+  .dark {
+    --color-bg-MAIN: #000000;
+    --color-bg-SURFACE: #111111;
+    --color-BORDER: #333333;
+    --color-text-MAIN: #FFFFFF;
+    --color-text-MUTED: #9CA3AF;
+    --color-ACCENT: #FFFFFF;
+    --color-ACCENT-text: #000000;
+  }
+
+  /* KENYA / OFFICIAL MODE */
+  .kenya {
+    --color-bg-MAIN: #022C22;
+    /* Deep Green (Kenya Flag Green-ish/Dark) */
+    --color-bg-SURFACE: #064E3B;
+    /* Emerald 900 */
+    --color-BORDER: #065F46;
+    /* Emerald 800 */
+    --color-text-MAIN: #ECFDF5;
+    /* Mint White */
+    --color-text-MUTED: #9CA3AF;
+    /* Grey 400 */
+    --color-ACCENT: #DC2626;
+    /* Kenya Red */
+    --color-ACCENT-text: #FFFFFF;
+  }
+
+  body {
+    background-color: var(--color-bg-MAIN);
+    color: var(--color-text-MAIN);
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
+
+@layer components {
+
+  /* Dynamic Classes using Variables */
+  .layout-bg {
+    background-color: var(--color-bg-MAIN);
+    color: var(--color-text-MAIN);
+  }
+
+  .sidebar-bg {
+    background-color: var(--color-bg-MAIN);
+    border-right: 1px solid var(--color-BORDER);
+  }
+
+  .sidebar-active {
+    background-color: var(--color-ACCENT);
+    color: var(--color-ACCENT-text);
+  }
+
+  .sidebar-text {
+    color: var(--color-text-MUTED);
+  }
+
+  .content-bg {
+    background-color: var(--color-bg-SURFACE);
+  }
+
+  .glass {
+    @apply backdrop-blur-md;
+    border: 1px solid var(--color-BORDER);
+  }
+
+  .card {
+    background-color: var(--color-bg-MAIN);
+    border: 1px solid var(--color-BORDER);
+    @apply shadow-sm rounded-none;
+  }
+
+  .font-ocr {
+    font-family: 'Share Tech Mono', monospace;
+  }
+}

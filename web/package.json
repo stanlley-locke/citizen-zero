@@ -1,0 +1,14 @@
+{
+    "name": "citizen-zero-web-suite",
+    "private": true,
+    "workspaces": [
+        "admin-dashboard",
+        "employer-portal",
+        "worker-dashboard",
+        "shared"
+    ],
+    "scripts": {
+        "start:admin": "npm run start --workspace=admin-dashboard",
+        "build:admin": "npm run build --workspace=admin-dashboard"
+    }
+}

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-bg-MAIN: #1e293b;
+    /* Slightly lighter for worker */
+    --color-text-MAIN: #f8fafc;
+}
+
+body {
+    background-color: var(--color-bg-MAIN);
+    color: var(--color-text-MAIN);
+}

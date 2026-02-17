@@ -1,0 +1,6 @@
+PyQt6
+requests
+python-dotenv
+pandas
+matplotlib
+qtawesome

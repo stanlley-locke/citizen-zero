@@ -1,0 +1,95 @@
+desktop/
+│
+├── super_admin/                         # Super Admin GUI
+│   ├── src/
+│   │   ├── main.py                      # Application entry point
+│   │   ├── app.py                       # Main application class
+│   │   │
+│   │   ├── ui/                          # UI components
+│   │   │   ├── __init__.py
+│   │   │   ├── main_window.py           # Main window
+│   │   │   ├── widgets/                 # Custom widgets
+│   │   │   │   ├── dashboard_widget.py
+│   │   │   │   ├── citizen_widget.py
+│   │   │   │   ├── id_widget.py
+│   │   │   │   ├── verification_widget.py
+│   │   │   │   ├── biometric_widget.py
+│   │   │   │   ├── audit_widget.py
+│   │   │   │   └── settings_widget.py
+│   │   │   ├── dialogs/                 # Dialogs
+│   │   │   │   ├── add_citizen_dialog.py
+│   │   │   │   ├── issue_id_dialog.py
+│   │   │   │   ├── revoke_id_dialog.py
+│   │   │   │   └── settings_dialog.py
+│   │   │   └── styles/                  # Stylesheets
+│   │   │       ├── dark_theme.qss
+│   │   │       └── light_theme.qss
+│   │   │
+│   │   ├── services/                    # Backend services
+│   │   │   ├── __init__.py
+│   │   │   ├── api_client.py            # API client
+│   │   │   ├── auth_service.py
+│   │   │   ├── citizen_service.py
+│   │   │   ├── id_service.py
+│   │   │   ├── verification_service.py
+│   │   │   ├── biometric_service.py
+│   │   │   └── audit_service.py
+│   │   │
+│   │   ├── models/                      # Data models
+│   │   │   ├── __init__.py
+│   │   │   ├── citizen.py
+│   │   │   ├── digital_id.py
+│   │   │   ├── verification.py
+│   │   │   └── biometric.py
+│   │   │
+│   │   ├── controllers/                 # Controllers (MVC)
+│   │   │   ├── __init__.py
+│   │   │   ├── dashboard_controller.py
+│   │   │   ├── citizen_controller.py
+│   │   │   ├── id_controller.py
+│   │   │   ├── verification_controller.py
+│   │   │   └── settings_controller.py
+│   │   │
+│   │   ├── utils/                       # Utility functions
+│   │   │   ├── __init__.py
+│   │   │   ├── validators.py
+│   │   │   ├── helpers.py
+│   │   │   └── logger.py
+│   │   │
+│   │   ├── config/                      # Configuration
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py
+│   │   │   └── constants.py
+│   │   │
+│   │   └── resources/                   # Resources (icons, images)
+│   │       ├── icons/
+│   │       ├── images/
+│   │       └── translations/
+│   │
+│   ├── tests/                           # Unit tests
+│   ├── requirements.txt
+│   ├── setup.py                         # Installation script
+│   ├── README.md
+│   └── .env.example
+│
+├── system_config/                       # System Configuration Tool
+│   ├── src/
+│   │   ├── main.py
+│   │   ├── config_manager.py            # Configuration manager
+│   │   ├── ui/
+│   │   │   ├── config_window.py
+│   │   │   ├── widgets/
+│   │   │   └── dialogs/
+│   │   ├── services/
+│   │   │   ├── database_config.py
+│   │   │   ├── api_config.py
+│   │   │   ├── security_config.py
+│   │   │   └── network_config.py
+│   │   └── utils/
+│   ├── requirements.txt
+│   └── README.md
+│
+├── requirements.txt                     # Common dependencies
+├── setup.py                             # Installation script
+├── Makefile                             # Build commands
+└── README.md                            # Desktop apps documentation

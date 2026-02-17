@@ -1,0 +1,51 @@
+docs/
+│
+├── architecture/                        # System Architecture
+│   ├── high_level_architecture.md
+│   ├── component_diagrams/
+│   │   ├── system_overview.png
+│   │   ├── data_flow.png
+│   │   └── deployment_architecture.png
+│   ├── technology_stack.md
+│   └── design_decisions.md
+│
+├── api/                                 # API Documentation
+│   ├── auth_api.md
+│   ├── id_api.md
+│   ├── verification_api.md
+│   ├── biometric_api.md
+│   ├── audit_api.md
+│   └── openapi_spec.yaml
+│
+├── security/                            # Security Documentation
+│   ├── security_policy.md
+│   ├── threat_model.md
+│   ├── encryption_strategy.md
+│   ├── access_control.md
+│   └── compliance.md
+│
+├── deployment/                          # Deployment Guide
+│   ├── local_setup.md
+│   ├── kubernetes_deployment.md
+│   ├── production_checklist.md
+│   └── disaster_recovery.md
+│
+├── user_guides/                         # User Guides
+│   ├── citizen_guide.md
+│   ├── verifier_guide.md
+│   ├── admin_guide.md
+│   ├── employer_guide.md
+│   └── worker_guide.md
+│
+├── development/                         # Development Guide
+│   ├── contributing.md
+│   ├── coding_standards.md
+│   ├── testing_guide.md
+│   └── debugging.md
+│
+├── troubleshooting/                     # Troubleshooting Guide
+│   ├── common_issues.md
+│   ├── faq.md
+│   └── support.md
+│
+└── README.md                            # Documentation overview

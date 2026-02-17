@@ -1,0 +1,249 @@
+flutter/
+│
+├── citizen_wallet/                      # Citizen Digital ID Wallet App
+│   ├── android/                         # Android native code
+│   │   ├── app/
+│   │   │   ├── src/main/kotlin/com/citizenzero/
+│   │   │   │   ├── secure/              # Secure Enclave Manager
+│   │   │   │   │   ├── KeyStoreManager.kt
+│   │   │   │   │   ├── BiometricAuth.kt
+│   │   │   │   │   └── CryptoUtils.kt
+│   │   │   │   ├── biometrics/          # Biometric Integration
+│   │   │   │   │   ├── FaceAuthenticator.kt
+│   │   │   │   │   └── FingerprintAuthenticator.kt
+│   │   │   │   ├── hardware/            # Hardware Integration
+│   │   │   │   │   ├── NFCManager.kt
+│   │   │   │   │   ├── BLEManager.kt
+│   │   │   │   │   └── CameraManager.kt
+│   │   │   │   └── platform/            # Platform Channels
+│   │   │   │       ├── SecureEnclaveChannel.kt
+│   │   │   │       ├── BiometricChannel.kt
+│   │   │   │       └── HardwareChannel.kt
+│   │   │   ├── build.gradle
+│   │   │   └── AndroidManifest.xml
+│   │   └── settings.gradle
+│   │
+│   ├── ios/                             # iOS native code
+│   │   ├── Runner/
+│   │   │   ├── SecureEnclaveManager.swift
+│   │   │   ├── BiometricAuthManager.swift
+│   │   │   ├── HardwareIntegration/
+│   │   │   │   ├── NFCManager.swift
+│   │   │   │   ├── BLEManager.swift
+│   │   │   │   └── CameraManager.swift
+│   │   │   ├── PlatformChannels/
+│   │   │   │   ├── SecureEnclaveChannel.swift
+│   │   │   │   ├── BiometricChannel.swift
+│   │   │   │   └── HardwareChannel.swift
+│   │   │   └── AppDelegate.swift
+│   │   └── Podfile
+│   │
+│   ├── lib/                             # Dart source code
+│   │   ├── core/                        # Core utilities
+│   │   │   ├── constants/               # App constants
+│   │   │   │   ├── app_constants.dart
+│   │   │   │   ├── api_endpoints.dart
+│   │   │   │   └── error_messages.dart
+│   │   │   ├── utils/                   # Utility functions
+│   │   │   │   ├── crypto_utils.dart    # Cryptographic operations
+│   │   │   │   ├── date_utils.dart
+│   │   │   │   └── validation_utils.dart
+│   │   │   ├── exceptions/              # Custom exceptions
+│   │   │   │   ├── app_exception.dart
+│   │   │   │   └── network_exception.dart
+│   │   │   └── theme/                   # App theming
+│   │   │       ├── app_theme.dart
+│   │   │       └── colors.dart
+│   │   │
+│   │   ├── data/                        # Data layer
+│   │   │   ├── models/                  # Data models
+│   │   │   │   ├── digital_id.dart
+│   │   │   │   ├── citizen.dart
+│   │   │   │   ├── verification_log.dart
+│   │   │   │   └── biometric_data.dart
+│   │   │   ├── repositories/            # Repository pattern
+│   │   │   │   ├── auth_repository.dart
+│   │   │   │   ├── id_repository.dart
+│   │   │   │   ├── biometric_repository.dart
+│   │   │   │   └── offline_repository.dart
+│   │   │   └── datasources/             # Data sources
+│   │   │       ├── remote/              # API calls
+│   │   │       │   ├── auth_api.dart
+│   │   │       │   ├── id_api.dart
+│   │   │       │   └── biometric_api.dart
+│   │   │       └── local/               # Local storage
+│   │   │           ├── database.dart    # Drift database
+│   │   │           ├── secure_storage.dart
+│   │   │           └── preferences.dart
+│   │   │
+│   │   ├── domain/                      # Business logic
+│   │   │   ├── entities/                # Business entities
+│   │   │   ├── usecases/                # Use cases
+│   │   │   │   ├── auth/
+│   │   │   │   │   ├── login_usecase.dart
+│   │   │   │   │   ├── logout_usecase.dart
+│   │   │   │   │   └── refresh_token_usecase.dart
+│   │   │   │   ├── digital_id/
+│   │   │   │   │   ├── issue_id_usecase.dart
+│   │   │   │   │   ├── recover_id_usecase.dart
+│   │   │   │   │   └── revoke_id_usecase.dart
+│   │   │   │   ├── biometrics/
+│   │   │   │   │   ├── face_verification_usecase.dart
+│   │   │   │   │   ├── liveness_check_usecase.dart
+│   │   │   │   │   └── fingerprint_auth_usecase.dart
+│   │   │   │   └── offline/
+│   │   │   │       ├── generate_qr_usecase.dart
+│   │   │   │       ├── verify_offline_usecase.dart
+│   │   │   │       └── sync_pending_transactions_usecase.dart
+│   │   │   └── repositories/            # Abstract repositories
+│   │   │
+│   │   ├── presentation/                # UI layer
+│   │   │   ├── pages/                   # Screens
+│   │   │   │   ├── auth/
+│   │   │   │   │   ├── login_page.dart
+│   │   │   │   │   ├── pin_setup_page.dart
+│   │   │   │   │   └── biometric_setup_page.dart
+│   │   │   │   ├── dashboard/
+│   │   │   │   │   ├── home_page.dart
+│   │   │   │   │   └── profile_page.dart
+│   │   │   │   ├── digital_id/
+│   │   │   │   │   ├── id_wallet_page.dart
+│   │   │   │   │   ├── id_details_page.dart
+│   │   │   │   │   └── share_id_page.dart
+│   │   │   │   ├── biometrics/
+│   │   │   │   │   ├── face_scan_page.dart
+│   │   │   │   │   ├── liveness_challenge_page.dart
+│   │   │   │   │   └── biometric_settings_page.dart
+│   │   │   │   ├── recovery/
+│   │   │   │   │   ├── recovery_page.dart
+│   │   │   │   │   └── recovery_success_page.dart
+│   │   │   │   ├── verification/
+│   │   │   │   │   ├── qr_scanner_page.dart
+│   │   │   │   │   ├── verification_result_page.dart
+│   │   │   │   │   └── verification_history_page.dart
+│   │   │   │   └── settings/
+│   │   │   │       ├── settings_page.dart
+│   │   │   │       ├── privacy_settings_page.dart
+│   │   │   │       └── security_settings_page.dart
+│   │   │   │
+│   │   │   ├── widgets/                 # Reusable widgets
+│   │   │   │   ├── common/
+│   │   │   │   │   ├── app_button.dart
+│   │   │   │   │   ├── app_text_field.dart
+│   │   │   │   │   └── loading_indicator.dart
+│   │   │   │   ├── biometrics/
+│   │   │   │   │   ├── face_preview.dart
+│   │   │   │   │   ├── liveness_indicator.dart
+│   │   │   │   │   └── biometric_status.dart
+│   │   │   │   └── id/
+│   │   │   │       ├── id_card_widget.dart
+│   │   │   │       ├── qr_display_widget.dart
+│   │   │   │       └── attribute_sharing_widget.dart
+│   │   │   │
+│   │   │   ├── providers/               # State management (Riverpod)
+│   │   │   │   ├── auth_provider.dart
+│   │   │   │   ├── id_provider.dart
+│   │   │   │   ├── biometric_provider.dart
+│   │   │   │   └── offline_provider.dart
+│   │   │   │
+│   │   │   └── routes/                  # Navigation
+│   │   │       ├── app_router.dart
+│   │   │       └── route_names.dart
+│   │   │
+│   │   ├── platform/                    # Platform channels
+│   │   │   ├── secure_enclave.dart      # Secure Enclave integration
+│   │   │   ├── biometric_auth.dart      # Biometric authentication
+│   │   │   └── hardware_integration.dart # NFC/BLE/Camera
+│   │   │
+│   │   ├── biometrics/                  # Biometric processing
+│   │   │   ├── liveness_detector.dart   # Liveness detection
+│   │   │   ├── face_matcher.dart        # Face matching
+│   │   │   └── fingerprint_scanner.dart # Fingerprint scanning
+│   │   │
+│   │   ├── offline/                     # Offline functionality
+│   │   │   ├── qr_generator.dart        # Dynamic QR generation
+│   │   │   ├── ble_sharing.dart         # BLE proximity sharing
+│   │   │   ├── nfc_sharing.dart         # NFC tap-to-verify
+│   │   │   └── transaction_queue.dart   # Offline transaction queue
+│   │   │
+│   │   ├── crypto/                      # Cryptographic operations
+│   │   │   ├── cose_signer.dart         # COSE signature generation
+│   │   │   ├── cbor_encoder.dart        # CBOR encoding
+│   │   │   ├── zkp_prover.dart          # Zero-Knowledge Proof prover
+│   │   │   └── key_manager.dart         # Key management
+│   │   │
+│   │   ├── features/                    # Feature modules
+│   │   │   ├── onboarding/              # User onboarding
+│   │   │   ├── wallet/                  # Digital wallet
+│   │   │   ├── verification/            # ID verification
+│   │   │   ├── recovery/                # ID recovery
+│   │   │   └── settings/                # App settings
+│   │   │
+│   │   └── main.dart                    # App entry point
+│   │
+│   ├── assets/                          # Static assets
+│   │   ├── images/                      # App images
+│   │   ├── icons/                       # App icons
+│   │   ├── fonts/                       # Custom fonts
+│   │   └── lottie/                      # Lottie animations
+│   │
+│   ├── test/                            # Unit tests
+│   ├── integration_test/                # Integration tests
+│   ├── pubspec.yaml                     # Dependencies
+│   ├── pubspec.lock
+│   ├── README.md                        # App documentation
+│   └── .env.example                      # Environment variables
+│
+├── verifier_app/                        # Police/Bank Verifier App
+│   ├── android/                         # Android native code (similar structure)
+│   ├── ios/                             # iOS native code (similar structure)
+│   ├── lib/                             # Dart source code
+│   │   ├── core/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   ├── presentation/
+│   │   ├── platform/
+│   │   ├── offline/                     # Offline verification
+│   │   │   ├── qr_scanner.dart
+│   │   │   ├── ble_receiver.dart
+│   │   │   ├── signature_validator.dart
+│   │   │   └── revocation_checker.dart
+│   │   ├── verification/                # Verification logic
+│   │   │   ├── online_verification.dart
+│   │   │   ├── offline_verification.dart
+│   │   │   └── batch_verification.dart
+│   │   └── main.dart
+│   ├── assets/
+│   ├── test/
+│   ├── pubspec.yaml
+│   └── README.md
+│
+├── shared/                              # Shared packages
+│   ├── citizen_zero_core/               # Core utilities shared across apps
+│   │   ├── lib/
+│   │   │   ├── models/
+│   │   │   ├── constants/
+│   │   │   ├── utils/
+│   │   │   └── crypto/
+│   │   ├── pubspec.yaml
+│   │   └── README.md
+│   │
+│   ├── citizen_zero_ui/                 # Shared UI components
+│   │   ├── lib/
+│   │   │   ├── widgets/
+│   │   │   ├── themes/
+│   │   │   └── styles/
+│   │   ├── pubspec.yaml
+│   │   └── README.md
+│   │
+│   └── citizen_zero_platform/           # Shared platform channels
+│       ├── lib/
+│       │   ├── secure_enclave/
+│       │   ├── biometrics/
+│       │   └── hardware/
+│       ├── android/
+│       ├── ios/
+│       ├── pubspec.yaml
+│       └── README.md
+│
+└── README.md                            # Flutter apps overview

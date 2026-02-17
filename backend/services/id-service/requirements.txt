@@ -1,0 +1,9 @@
+django>=4.2,<5.0
+djangorestframework>=3.14
+cbor2>=5.4.0
+pycose>=1.0.1
+cryptography>=41.0.0
+qrcode>=7.4
+requests>=2.31
+django-cors-headers>=4.0
+reportlab>=4.0.0

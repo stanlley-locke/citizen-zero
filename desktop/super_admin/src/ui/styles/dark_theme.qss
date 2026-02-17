@@ -1,0 +1,88 @@
+/* Dark Theme QSS for CitizenZero */
+QMainWindow {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+QWidget {
+    font-family: "Segoe UI", "Outfit", sans-serif;
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+/* Sidebar / Dashboard Menu */
+QListWidget {
+    background-color: #2d2d2d;
+    border: none;
+    outline: none;
+}
+
+QListWidget::item {
+    padding: 12px;
+    border-radius: 4px;
+    margin: 4px 8px;
+}
+
+QListWidget::item:selected {
+    background-color: #BB0000; /* Kenyan Red Accent */
+    color: white;
+}
+
+QListWidget::item:hover {
+    background-color: #3d3d3d;
+}
+
+/* Data Tables */
+QTableWidget {
+    background-color: #252525;
+    alternate-background-color: #2d2d2d;
+    gridline-color: #3d3d3d;
+    selection-background-color: #BB0000;
+    selection-color: white;
+    border: 1px solid #3d3d3d;
+}
+
+QHeaderView::section {
+    background-color: #333333;
+    padding: 6px;
+    border: 1px solid #3d3d3d;
+    font-weight: bold;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #006600; /* Kenyan Green */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #008000;
+}
+
+QPushButton#dangerButton {
+    background-color: #BB0000;
+}
+
+QPushButton#dangerButton:hover {
+    background-color: #dd0000;
+}
+
+/* Inputs */
+QLineEdit {
+    background-color: #333333;
+    border: 1px solid #444444;
+    padding: 6px;
+    border-radius: 4px;
+    color: white;
+}
+
+QLabel#header {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 16px;
+}

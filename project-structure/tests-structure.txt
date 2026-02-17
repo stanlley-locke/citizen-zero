@@ -1,0 +1,48 @@
+tests/
+│
+├── flutter_tests/                       # Flutter Tests
+│   ├── unit/                            # Unit tests
+│   ├── widget/                          # Widget tests
+│   ├── integration/                     # Integration tests
+│   └── e2e/                             # End-to-end tests
+│
+├── backend_tests/                       # Backend Tests
+│   ├── unit/                            # Unit tests
+│   │   ├── auth_service/
+│   │   ├── id_service/
+│   │   ├── verify_service/
+│   │   ├── biometric_service/
+│   │   └── audit_service/
+│   ├── integration/                     # Integration tests
+│   │   ├── api_tests/
+│   │   ├── database_tests/
+│   │   └── service_tests/
+│   ├── e2e/                             # End-to-end tests
+│   └── performance/                     # Performance tests
+│
+├── web_tests/                           # Web Tests
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+├── desktop_tests/                       # Desktop Tests
+│   ├── unit/
+│   └── integration/
+│
+├── cli_tests/                           # CLI Tests
+│   ├── unit/
+│   └── integration/
+│
+├── test_data/                           # Test Data
+│   ├── citizens.json
+│   ├── biometrics/
+│   └── photos/
+│
+├── test_utils/                          # Test Utilities
+│   ├── factories.py
+│   ├── helpers.py
+│   └── fixtures.py
+│
+├── pytest.ini                           # Pytest configuration
+├── .coveragerc                          # Coverage configuration
+└── README.md                            # Testing guide

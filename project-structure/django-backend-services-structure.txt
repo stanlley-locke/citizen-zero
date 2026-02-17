@@ -1,0 +1,486 @@
+backend/
+│
+├── services/                            # Microservices
+│   │
+│   ├── auth-service/                    # Authentication & Authorization
+│   │   ├── auth_service/
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py              # Django settings
+│   │   │   ├── urls.py                  # URL routing
+│   │   │   ├── wsgi.py
+│   │   │   └── asgi.py
+│   │   │
+│   │   ├── apps/
+│   │   │   ├── authentication/          # Auth app
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── views.py
+│   │   │   │   ├── serializers.py
+│   │   │   │   ├── permissions.py
+│   │   │   │   └── tests.py
+│   │   │   │
+│   │   │   ├── jwt/                     # JWT management
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── utils.py
+│   │   │   │   ├── middleware.py
+│   │   │   │   └── tests.py
+│   │   │   │
+│   │   │   ├── sessions/                # Session management
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   └── views.py
+│   │   │   │
+│   │   │   └── rate_limiting/           # Rate limiting
+│   │   │       ├── __init__.py
+│   │   │       ├── middleware.py
+│   │   │       └── utils.py
+│   │   │
+│   │   ├── requirements.txt
+│   │   ├── manage.py
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   ├── id-service/                      # Digital ID Issuance & Management
+│   │   ├── id_service/
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py
+│   │   │   ├── urls.py
+│   │   │   └── wsgi.py
+│   │   │
+│   │   ├── apps/
+│   │   │   ├── digital_id/              # Digital ID management
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── views.py
+│   │   │   │   ├── serializers.py
+│   │   │   │   ├── services.py          # Business logic
+│   │   │   │   │   ├── issuance_service.py
+│   │   │   │   │   ├── recovery_service.py
+│   │   │   │   │   └── revocation_service.py
+│   │   │   │   └── tests.py
+│   │   │   │
+│   │   │   ├── cbor/                    # CBOR encoding/decoding
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── encoder.py
+│   │   │   │   └── decoder.py
+│   │   │   │
+│   │   │   ├── cose/                    # COSE signatures
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── signer.py
+│   │   │   │   ├── verifier.py
+│   │   │   │   └── utils.py
+│   │   │   │
+│   │   │   ├── iso18013/                # ISO 18013-5 compliance
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── mdoc.py
+│   │   │   │   ├── namespace.py
+│   │   │   │   └   └── validator.py
+│   │   │   │
+│   │   │   └── qr/                      # QR code generation
+│   │   │       ├── __init__.py
+│   │   │       ├── generator.py
+│   │   │       └── validator.py
+│   │   │
+│   │   ├── requirements.txt
+│   │   ├── manage.py
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   ├── verify-service/                  # Verification Service
+│   │   ├── verify_service/
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py
+│   │   │   ├── urls.py
+│   │   │   └── wsgi.py
+│   │   │
+│   │   ├── apps/
+│   │   │   ├── online_verification/     # Online verification
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── views.py
+│   │   │   │   ├── serializers.py
+│   │   │   │   └── tests.py
+│   │   │   │
+│   │   │   ├── offline_verification/    # Offline verification
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── views.py
+│   │   │   │   ├── validators.py
+│   │   │   │   └── tests.py
+│   │   │   │
+│   │   │   ├── zkp/                     # Zero-Knowledge Proofs
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── prover.py
+│   │   │   │   ├── verifier.py
+│   │   │   │   └── circuits.py
+│   │   │   │
+│   │   │   ├── revocation/              # Revocation checking
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── services.py
+│   │   │   │   └── tasks.py             # Celery tasks for revocation list updates
+│   │   │   │
+│   │   │   └── audit/                   # Verification audit
+│   │   │       ├── __init__.py
+│   │   │       ├── models.py
+│   │   │       └── services.py
+│   │   │
+│   │   ├── requirements.txt
+│   │   ├── manage.py
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   ├── biometric-service/               # Biometric Processing
+│   │   ├── biometric_service/
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py
+│   │   │   ├── urls.py
+│   │   │   └── wsgi.py
+│   │   │
+│   │   ├── apps/
+│   │   │   ├── face_recognition/        # Face recognition
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── views.py
+│   │   │   │   ├── serializers.py
+│   │   │   │   └── ml/
+│   │   │   │       ├── __init__.py
+│   │   │   │       ├── african_demographic_model.py
+│   │   │   │       ├── deepface_wrapper.py
+│   │   │   │       ├── liveness_detector.py
+│   │   │   │       └── utils.py
+│   │   │   │
+│   │   │   ├── fingerprint/             # Fingerprint processing
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── views.py
+│   │   │   │   └── iso19794/
+│   │   │   │       ├── __init__.py
+│   │   │   │       ├── encoder.py
+│   │   │   │       └── decoder.py
+│   │   │   │
+│   │   │   ├── templates/               # Biometric templates
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── services.py
+│   │   │   │   └── biohash.py           # ISO/IEC 24745 BioHash
+│   │   │   │
+│   │   │   ├── liveness/                # Liveness detection
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── services.py
+│   │   │   │   └── challenges.py
+│   │   │   │
+│   │   │   └── verification/            # Biometric verification
+│   │   │       ├── __init__.py
+│   │   │       ├── models.py
+│   │   │       ├── views.py
+│   │   │       ├── tasks.py             # Celery tasks
+│   │   │       └── services.py
+│   │   │
+│   │   ├── requirements.txt
+│   │   ├── manage.py
+│   │   ├── Dockerfile.gpu               # GPU-enabled Dockerfile
+│   │   └── README.md
+│   │
+│   ├── audit-service/                   # Audit & Compliance
+│   │   ├── audit_service/
+│   │   │   ├── __init__.py
+│   │   │   ├── settings.py
+│   │   │   ├── urls.py
+│   │   │   └── wsgi.py
+│   │   │
+│   │   ├── apps/
+│   │   │   ├── audit_trail/             # Audit trail
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py
+│   │   │   │   ├── views.py
+│   │   │   │   └── exporters.py
+│   │   │   │
+│   │   │   ├── compliance/              # Compliance reporting
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── reports.py
+│   │   │   │   └── dashboards.py
+│   │   │   │
+│   │   │   └── analytics/               # Analytics
+│   │   │       ├── __init__.py
+│   │   │       ├── metrics.py
+│   │   │       └── visualizations.py
+│   │   │
+│   │   ├── requirements.txt
+│   │   ├── manage.py
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   └── shared/                          # Shared code across services
+│       ├── __init__.py
+│       ├── utils/
+│       │   ├── crypto.py                # Cryptographic utilities
+│       │   ├── jwt.py                   # JWT utilities
+│       │   ├── validators.py            # Data validators
+│       │   └── helpers.py
+│       ├── middleware/
+│       │   ├── logging.py
+│       │   ├── cors.py
+│       │   └── security.py
+│       ├── exceptions/
+│       │   ├── custom_exceptions.py
+│       │   └── handlers.py
+│       └── constants.py
+│
+├── iprs-mock/                           # Mock IPRS for Testing
+│   ├── iprs_mock/
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   │
+│   ├── apps/
+│   │   ├── citizens/                    # Citizen profiles
+│   │   │   ├── __init__.py
+│   │   │   ├── models.py
+│   │   │   ├── views.py
+│   │   │   ├── serializers.py
+│   │   │   └── management/
+│   │   │       └── commands/
+│   │   │           ├── seed_citizens.py # Seed test data
+│   │   │           └── generate_biometrics.py
+│   │   │
+│   │   ├── biometrics/                  # Biometric data
+│   │   │   ├── __init__.py
+│   │   │   ├── models.py
+│   │   │   ├── views.py
+│   │   │   ├── storage/                 # Biometric storage
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── filesystem.py
+│   │   │   │   └── s3.py
+│   │   │   └── templates/               # Biometric templates
+│   │   │       ├── __init__.py
+│   │   │       ├── face_templates/
+│   │   │       │   ├── generate.py
+│   │   │       │   └── match.py
+│   │   │       └── fingerprint_templates/
+│   │   │           ├── generate.py
+│   │   │           └── match.py
+│   │   │
+│   │   ├── photos/                      # Citizen photos
+│   │   │   ├── __init__.py
+│   │   │   ├── models.py
+│   │   │   ├── views.py
+│   │   │   └── storage.py
+│   │   │
+│   │   ├── matching/                    # Matching algorithms
+│   │   │   ├── __init__.py
+│   │   │   ├── face_matcher.py
+│   │   │   ├── fingerprint_matcher.py
+│   │   │   └── score_calculator.py
+│   │   │
+│   │   └── api/                         # IPRS API mock
+│   │       ├── __init__.py
+│   │       ├── endpoints.py
+│   │       ├── serializers.py
+│   │       └── tests.py
+│   │
+│   ├── data/                            # Test data
+│   │   ├── citizens.json                # Mock citizen data
+│   │   ├── biometrics/                  # Biometric samples
+│   │   │   ├── faces/
+│   │   │   └── fingerprints/
+│   │   └── photos/                      # Citizen photos
+│   │
+│   ├── scripts/
+│   │   ├── seed_database.py             # Database seeding script
+│   │   └── generate_test_data.py
+│   │
+│   ├── requirements.txt
+│   ├── manage.py
+│   ├── Dockerfile
+│   └── README.md
+│
+├── blockchain/                          # Blockchain & Cryptographic Services
+│   ├── hyperledger/                     # Hyperledger Fabric
+│   │   ├── chaincode/                   # Smart contracts
+│   │   │   ├── id_issuance.go
+│   │   │   ├── id_revocation.go
+│   │   │   └── audit_logging.go
+│   │   ├── config/                      # Fabric configuration
+│   │   │   ├── configtx.yaml
+│   │   │   ├── crypto-config.yaml
+│   │   │   └── docker-compose.yaml
+│   │   └── scripts/
+│   │       ├── deploy_chaincode.sh
+│   │       └── invoke_transaction.sh
+│   │
+│   ├── cryptography/                    # Cryptographic utilities
+│   │   ├── __init__.py
+│   │   ├── keys/                        # Key management
+│   │   │   ├── __init__.py
+│   │   │   ├── generator.py
+│   │   │   ├── storage.py
+│   │   │   └── hsm.py                   # HSM integration
+│   │   ├── signatures/                  # Digital signatures
+│   │   │   ├── __init__.py
+│   │   │   ├── ecdsa.py
+│   │   │   ├── eddsa.py
+│   │   │   └── utils.py
+│   │   ├── encryption/                  # Encryption
+│   │   │   ├── __init__.py
+│   │   │   ├── aes.py
+│   │   │   ├── rsa.py
+│   │   │   └── hybrid.py
+│   │   └── zkp/                         # Zero-Knowledge Proofs
+│   │       ├── __init__.py
+│   │       ├── groth16.py
+│   │       ├── bulletproofs.py
+│   │       └── circuits.py
+│   │
+│   ├── audit_trail/                     # Audit trail on blockchain
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── services.py
+│   │   └── views.py
+│   │
+│   └── README.md
+│
+├── docker/                              # Docker & Kubernetes Configuration
+│   ├── services/                        # Service-specific Dockerfiles
+│   │   ├── django-base/                 # Base Django image
+│   │   │   ├── Dockerfile
+│   │   │   └── requirements.txt
+│   │   ├── celery-worker/               # Celery worker image
+│   │   │   ├── Dockerfile
+│   │   │   └── Dockerfile.gpu           # GPU-enabled
+│   │   ├── nginx/                       # Nginx configuration
+│   │   │   ├── Dockerfile
+│   │   │   ├── nginx.conf
+│   │   │   └── ssl/
+│   │   ├── postgres/                    # PostgreSQL configuration
+│   │   │   ├── Dockerfile
+│   │   │   ├── init-scripts/
+│   │   │   │   └── init.sql
+│   │   │   └── pg_partman/              # Partitioning setup
+│   │   ├── redis/                       # Redis configuration
+│   │   │   ├── Dockerfile
+│   │   │   └── redis.conf
+│   │   ├── minio/                       # MinIO configuration
+│   │   │   ├── Dockerfile
+│   │   │   └── config/
+│   │   └── hsm/                         # HSM container
+│   │       ├── Dockerfile
+│   │       └── config/
+│   │
+│   ├── kubernetes/                      # Kubernetes manifests
+│   │   ├── namespaces/
+│   │   │   └── citizenzero.yaml
+│   │   ├── deployments/
+│   │   │   ├── auth-service.yaml
+│   │   │   ├── id-service.yaml
+│   │   │   ├── verify-service.yaml
+│   │   │   ├── biometric-service.yaml
+│   │   │   ├── audit-service.yaml
+│   │   │   ├── celery-worker.yaml
+│   │   │   ├── postgres-cluster.yaml
+│   │   │   ├── redis-cluster.yaml
+│   │   │   ├── minio.yaml
+│   │   │   └── nginx.yaml
+│   │   ├── services/
+│   │   │   ├── auth-service.yaml
+│   │   │   ├── id-service.yaml
+│   │   │   ├── verify-service.yaml
+│   │   │   ├── biometric-service.yaml
+│   │   │   ├── audit-service.yaml
+│   │   │   ├── postgres.yaml
+│   │   │   ├── redis.yaml
+│   │   │   ├── minio.yaml
+│   │   │   └── nginx.yaml
+│   │   ├── configmaps/
+│   │   │   ├── app-config.yaml
+│   │   │   ├── nginx-config.yaml
+│   │   │   └── postgres-config.yaml
+│   │   ├── secrets/
+│   │   │   ├── db-credentials.yaml
+│   │   │   ├── jwt-secret.yaml
+│   │   │   ├── hsm-credentials.yaml
+│   │   │   └── tls-certificates.yaml
+│   │   ├── persistentvolumes/
+│   │   │   ├── postgres-pv.yaml
+│   │   │   ├── redis-pv.yaml
+│   │   │   └── minio-pv.yaml
+│   │   ├── hpa/                         # Horizontal Pod Autoscalers
+│   │   │   ├── celery-worker-hpa.yaml
+│   │   │   └── django-services-hpa.yaml
+│   │   └── ingress/
+│   │       ├── api-ingress.yaml
+│   │       └── web-ingress.yaml
+│   │
+│   ├── docker-compose.yml               # Development environment
+│   ├── docker-compose.prod.yml          # Production environment
+│   └── Makefile                         # Docker commands
+│
+├── scripts/                             # Utility Scripts
+│   ├── setup/
+│   │   ├── setup_environment.sh         # Environment setup
+│   │   ├── install_dependencies.sh      # Dependency installation
+│   │   └── configure_hsm.sh             # HSM configuration
+│   │
+│   ├── deployment/
+│   │   ├── deploy_to_k8s.sh             # Kubernetes deployment
+│   │   ├── rollback.sh                  # Rollback script
+│   │   └── scale_services.sh            # Scale services
+│   │
+│   ├── maintenance/
+│   │   ├── backup_database.sh           # Database backup
+│   │   ├── restore_database.sh          # Database restore
+│   │   ├── cleanup_logs.sh              # Log cleanup
+│   │   └── rotate_keys.sh               # Key rotation
+│   │
+│   ├── testing/
+│   │   ├── run_tests.sh                 # Run all tests
+│   │   ├── seed_test_data.sh            # Seed test data
+│   │   └── generate_certificates.sh     # Generate SSL certificates
+│   │
+│   └── monitoring/
+│       ├── check_health.sh               # Health check
+│       └── alert_on_failure.sh          # Failure alerting
+│
+├── monitoring/                          # Monitoring & Observability
+│   ├── prometheus/                      # Prometheus configuration
+│   │   ├── prometheus.yml
+│   │   └── rules/
+│   │       ├── alert_rules.yml
+│   │       └── recording_rules.yml
+│   │
+│   ├── grafana/                         # Grafana dashboards
+│   │   ├── dashboards/
+│   │   │   ├── system-overview.json
+│   │   │   ├── biometric-performance.json
+│   │   │   ├── api-metrics.json
+│   │   │   └── database-performance.json
+│   │   └── datasources/
+│   │       └── prometheus.yaml
+│   │
+│   ├── sentry/                          # Error tracking
+│   │   ├── sentry.conf.py
+│   │   └── config.yml
+│   │
+│   ├── logging/                         # Centralized logging
+│   │   ├── fluentd/
+│   │   │   ├── fluentd.conf
+│   │   │   └── parsers.conf
+│   │   └── elasticsearch/
+│   │       └── elasticsearch.yml
+│   │
+│   └── health-check/                    # Health check endpoints
+│       ├── endpoints.py
+│       └── middleware.py
+│
+├── tests/                               # Backend tests
+│   ├── unit/                            # Unit tests
+│   ├── integration/                     # Integration tests
+│   ├── e2e/                             # End-to-end tests
+│   └── performance/                     # Performance tests
+│
+├── requirements.txt                     # Python dependencies
+├── requirements-dev.txt                 # Development dependencies
+├── pyproject.toml                       # Project configuration
+├── Makefile                             # Common commands
+├── README.md                            # Backend documentation
+└── .env.example                         # Environment variables template

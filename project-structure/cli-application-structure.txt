@@ -1,0 +1,77 @@
+cli/
+│
+├── admin_cli/                           # Admin CLI Tool
+│   ├── src/
+│   │   ├── main.py                      # CLI entry point
+│   │   ├── cli.py                       # CLI application
+│   │   │
+│   │   ├── commands/                    # CLI commands
+│   │   │   ├── __init__.py
+│   │   │   ├── auth/                    # Authentication commands
+│   │   │   │   ├── login.py
+│   │   │   │   └── logout.py
+│   │   │   ├── citizens/                # Citizen management
+│   │   │   │   ├── list.py
+│   │   │   │   ├── add.py
+│   │   │   │   ├── update.py
+│   │   │   │   └── delete.py
+│   │   │   ├── ids/                     # ID management
+│   │   │   │   ├── issue.py
+│   │   │   │   ├── revoke.py
+│   │   │   │   ├── list.py
+│   │   │   │   └── status.py
+│   │   │   ├── verifications/           # Verification commands
+│   │   │   │   ├── list.py
+│   │   │   │   ├── details.py
+│   │   │   │   └── export.py
+│   │   │   ├── biometrics/              # Biometric commands
+│   │   │   │   ├── list.py
+│   │   │   │   ├── details.py
+│   │   │   │   └── export.py
+│   │   │   ├── audit/                   # Audit commands
+│   │   │   │   ├── trail.py
+│   │   │   │   ├── reports.py
+│   │   │   │   └── export.py
+│   │   │   └── system/                  # System commands
+│   │   │       ├── health.py
+│   │   │       ├── backup.py
+│   │   │       ├── restore.py
+│   │   │       └── config.py
+│   │   │
+│   │   ├── services/                    # Backend services
+│   │   │   ├── api_client.py
+│   │   │   ├── auth_service.py
+│   │   │   └── utils.py
+│   │   │
+│   │   ├── utils/                       # Utility functions
+│   │   │   ├── formatters.py
+│   │   │   ├── validators.py
+│   │   │   └── helpers.py
+│   │   │
+│   │   └── config/                      # Configuration
+│   │       ├── settings.py
+│   │       └── constants.py
+│   │
+│   ├── tests/                           # Unit tests
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── README.md
+│   └── .env.example
+│
+├── ops_cli/                             # Operations CLI
+│   ├── src/
+│   │   ├── main.py
+│   │   ├── cli.py
+│   │   ├── commands/
+│   │   │   ├── monitoring/              # Monitoring commands
+│   │   │   ├── deployment/              # Deployment commands
+│   │   │   ├── maintenance/             # Maintenance commands
+│   │   │   └── troubleshooting/         # Troubleshooting commands
+│   │   ├── services/
+│   │   └── utils/
+│   ├── requirements.txt
+│   └── README.md
+│
+├── requirements.txt
+├── setup.py
+└── README.md

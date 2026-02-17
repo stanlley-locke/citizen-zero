@@ -1,0 +1,398 @@
+PROJECT VISION & PROBLEM STATEMENT
+The Crisis: Kenya's identity system is trapped in a plastic paradox—when a citizen loses their National ID card, their economic life halts for 4–8 weeks during replacement. Banks freeze accounts, employers terminate contracts, and M-PESA blocks withdrawals. This isn't inconvenience—it's economic violence against the poor who cannot absorb 8 weeks of zero income.
+The Failure of Current Solutions:
+Huduma Namba was declared unconstitutional by Kenya's High Court (2020) for violating privacy rights
+eCitizen QR codes fail in 68% of rural police encounters due to zero connectivity
+30% of Kenyans using feature phones are excluded by smartphone-only designs
+Physical cards are easily forged; "ghost workers" drain public resources
+Our Solution: Citizen-Zero is not a replacement for physical IDs—it's a constitutionally-aligned digital augmentation where:
+✅ Digital and physical credentials hold equal legal standing
+✅ Verification works 100% offline in Turkana's remotest roadblocks
+✅ Identity recovery takes <5 minutes via biometrics—no queues, no gazette notices
+✅ Zero exclusion: USSD fallback for feature phones; adaptive biometrics for disabilities
+✅ Privacy by design: Share only necessary attributes ("Over 18: YES" without revealing name)
+✅ Function creep prevention: Legislative firewall requiring parliamentary approval for new data uses
+🏗️ CORE ARCHITECTURE: FIVE-LAYER HYBRID MODEL
+LAYER 1: PRESENTATION (Flutter Mobile Apps)
+Build two cross-platform applications:
+A. Citizen Wallet App (flutter/citizen_wallet/)
+Secure Enclave Integration:
+Android: Kotlin native bridge to Android StrongBox (KeyStoreManager.kt)
+iOS: Swift native bridge to Secure Enclave (SecureEnclaveManager.swift)
+Platform channels for hardware-backed ECDSA key generation/signing
+Biometric Authentication:
+Face ID/Touch ID via local_auth package
+Multi-modal liveness detection: texture analysis + micro-expression tracking + 3D depth estimation
+Challenge-response sequences ("Blink left → smile → turn head") to defeat deepfakes
+Offline-First Storage:
+Drift (SQLite) for encrypted local storage of digital IDs
+CBOR payload + COSE signatures per RFC 8152 stored in encrypted database
+Transaction queue for offline operations (syncs when connectivity restored)
+Proximity Sharing:
+Dynamic QR codes (60-second expiry) with nonce-based replay protection
+BLE proximity sharing (ISO 18013-5 compliant) for tap-to-verify
+NFC tap-to-verify for accessibility (no visual required)
+Privacy-Preserving Verification:
+Zero-Knowledge Proof (ZKP) attribute sharing ("Age ≥ 18: TRUE" without revealing DOB)
+User-selectable privacy presets: "Basic" (name/photo/ID), "Age Gate" (boolean only), "KYC Lite" (name/ID only)
+USSD Fallback:
+Integrated USSD gateway (999ID#) for feature phone users
+SMS token verification (no data bundles required)
+Voice-guided flows for visual impairment
+B. Verifier App (flutter/verifier_app/)
+Offline Verification Engine:
+Cached government public keys for signature validation without internet
+Revocation list updates via SMS broadcast (Cell Broadcast protocol)
+Cryptographic validation of dynamic QR codes/BLE signatures
+Agent Workflows:
+Police traffic stops: Scan QR → validate offline → display "VERIFIED" in <8 seconds
+Bank KYC: Request specific attributes → citizen approves via biometrics → receive signed VC
+Batch verification for employers (bulk employee onboarding)
+Inclusive Design:
+Large-text mode for elderly agents
+Audio feedback for verification results
+Offline-capable in zero-connectivity environments
+LAYER 2: API GATEWAY (Nginx + Kong)
+TLS 1.3 termination with HSTS headers
+Rate limiting (10 requests/minute per IP for auth endpoints)
+DDoS protection via Cloudflare/WAF integration
+Request routing to microservices based on path (/auth/* → auth-service, /id/* → id-service)
+LAYER 3: APPLICATION CORE (Django Microservices)
+Build five independent Django services in backend/services/:
+A. Auth Service (auth-service/)
+JWT authentication with 1-hour expiry + refresh tokens
+Rate limiting middleware (prevent brute force attacks)
+Session management with Redis backend
+Integration with mock IPRS for citizen lookup
+B. ID Service (id-service/)
+ISO 18013-5 mDL compliant payload generation:
+python
+123456789101112131415161718
+mdoc_payload = {
+    'version': '1.0',
+    'issuer': 'KE:GOV:CITIZENZERO',
+    'issuerSigned': {
+        'nameSpaces': {
+            'org.iso.18013.5.1': {
+                'family_name': 'MWANGI',
+                'given_name': 'JOHN',
+                'birth_date': '1990-01-15',
+                'issuance_date': '2026-02-01T00:00:00Z',
+
+COSE signature generation using HSM-backed ECDSA P-256 keys
+Digital ID issuance/recovery/revocation workflows
+Revocation list management with delta updates via SMS broadcast
+C. Verify Service (verify-service/)
+Online verification API with attribute minimization
+Offline verification endpoint for verifier apps (signature validation only)
+Zero-Knowledge Proof (ZKP) prover/verifier for privacy-preserving checks
+Revocation status checking against cached lists
+D. Biometric Service (biometric-service/)
+African Demographic Face Matcher:
+Custom model trained on UTKFace-Africa + Kenyan Celebrity Dataset
+Adaptive thresholds: stricter for dark skin tones (Fitzpatrick V-VI) and elderly (>60)
+Bias mitigation: demographic parity testing across skin tone/gender/age cohorts
+Liveness Detection Pipeline:
+On-device face detection via Google ML Kit (Flutter)
+Server-side deepfake detection using texture analysis + micro-expression tracking
+Challenge-response sequences with randomized instructions
+Async Processing:
+Celery workers with GPU acceleration (NVIDIA A10G)
+Redis queue for biometric verification tasks
+WebSockets for real-time result delivery to Flutter apps
+E. Audit Service (audit-service/)
+Immutable audit trail with cryptographic chaining (SHA-3 hashes)
+Real-time compliance dashboards for ODPC oversight
+API usage logging with purpose justification
+Public transparency dashboard (transparency.citizen-zero.go.ke)
+LAYER 4: DATA & PROCESSING
+PostgreSQL Cluster:
+Master node for writes (ID issuance)
+5 read replicas for verification queries
+Table partitioning by month for verification_logs (handles 10M+ daily scans)
+JSONB columns for flexible biometric metadata storage
+Redis Cluster:
+Session storage + Celery message broker
+Rate limiting counters (sliding window algorithm)
+Cached revocation lists for offline verifiers
+MinIO Object Storage:
+S3-compatible storage for biometric videos/templates
+Server-side encryption (AES-256-SSE)
+Cross-region replication for disaster recovery
+Cassandra:
+Time-series storage for high-volume audit logs
+TTL-based automatic expiration (90 days per DPA requirements)
+LAYER 5: INFRASTRUCTURE
+Kubernetes Cluster:
+Auto-scaling pods based on CPU + queue length metrics
+GPU-optimized nodes for Celery biometric workers
+Multi-region deployment (Nairobi primary, Cape Town standby)
+Thales Luna HSM:
+Hardware security module for root key protection
+ECDSA P-256 key generation/signing inside secure boundary
+FIPS 140-2 Level 3 certification
+SMPP Gateway:
+Integration with Safaricom/Airtel for USSD/SMS broadcast
+Network-initiated USSD pushes for revocation alerts
+SMS token delivery for feature phone verification
+🔐 CRITICAL SECURITY & PRIVACY FEATURES
+Biometric Security
+Irreversible Templates Only: Store ISO/IEC 24745 BioHash templates—never raw images
+1:1 Verification Only: No 1:N database searches (prevents function creep)
+Multi-Modal Liveness: Combine texture analysis + micro-expression + depth estimation
+Demographic Parity Testing: FAR/FRR measured separately across skin tones (max 0.5% disparity)
+Cryptographic Integrity
+Hardware-Backed Keys: ECDSA keys generated/stored in Secure Enclave/StrongBox
+COSE Signatures: RFC 8152 compliant signatures for offline validation
+Dynamic QR Codes: 60-second expiry + nonce-based replay protection
+Zero-Knowledge Proofs: Groth16 implementation for attribute minimization
+Data Protection by Architecture
+Purpose Limitation: Legislative firewall (Section 8A) preventing function creep
+90-Day Log Retention: Automatic deletion per Data Protection Act Section 35
+Right to Explanation: SMS with reason code + ODPC complaint channel (999HELP#) on verification failure
+Cross-Border Data Flow Ban: All processing within Kenya-based data centers
+♿ INCLUSION BY DESIGN (NON-NEGOTIABLE)
+Three-Tier Access Continuum
+Tier
+Population
+Solution
+Technical Implementation
+Tier 1
+65% smartphone owners
+Full wallet experience
+Flutter app with NFC/BLE/QR verification
+Tier 2
+30% feature phone users
+USSD fallback
+999ID# → SMS token → verifier scans token
+Tier 3
+5% zero-phone access
+Huduma kiosk tablets
+Biometric scan → 24h paper token with dynamic QR
+Disability-Inclusive Features
+Visual Impairment: Voice-guided USSD flows; NFC tap-to-verify (no visual required)
+Motor Impairment: 15-second capture window; voice biometrics fallback
+Albinism: Iris recognition via front camera; manual override with officer attestation
+Elderly/Memory Issues: Trusted contact designation (max 2); biometric-only recovery
+Rural Resilience Protocol
+SMS broadcast updates for revocation lists (works on all phones)
+Huduma Centre tablets cache IPRS templates for 72 hours (offline operation during outages)
+Agent certification required on inclusive verification practices
+🧪 MOCK IPRS FOR TESTING (backend/iprs-mock/)
+Since we lack access to national IPRS during development, build a realistic mock service:
+Core Components
+Citizen Database: 10,000+ mock profiles with demographic diversity (skin tone, age, gender)
+Biometric Repository:
+50,000+ face images across Fitzpatrick I-VI skin tones
+10,000+ fingerprint templates (ISO 19794-2 format)
+Synthetic deepfake videos for liveness testing
+Matching API:
+Simulate IPRS 1:1 face matching endpoint (POST /api/v1/match-face)
+Return configurable match scores (for testing edge cases)
+Inject failure modes (network timeout, template not found)
+Data Generation Scripts
+python
+12345678910111213141516171819202122232425
+# scripts/generate_test_data.py
+def generate_diverse_citizens(count=10000):
+    """Generate mock citizens with demographic diversity"""
+    citizens = []
+    for i in range(count):
+        # Distribute across skin tones per Kenyan demographics
+        skin_tone = random.choices(
+            ['light', 'medium', 'dark'],
+            weights=[0.15, 0.25, 0.60],  # Reflect Kenyan population
+            k=1
+
+Integration with Biometric Service
+Biometric service calls mock IPRS during development (settings.USE_MOCK_IPRS = True)
+Seamless switch to real IPRS via environment variable in production
+Mock IPRS runs as separate Django service with identical API contract
+💻 ADDITIONAL INTERFACES
+Web Dashboard (web/)
+Admin Dashboard (React):
+Real-time system metrics (verifications/minute by county)
+Citizen management with search/filter
+ID issuance/recovery/revocation workflows
+Audit trail viewer with export to PDF/CSV
+Employer Portal (React):
+Bulk employee KYC upload (CSV import)
+Verification history with compliance reporting
+API integration for payroll systems
+Worker Dashboard (React):
+Huduma agent tools for citizen registration
+Offline verification mode with sync-on-connect
+Recovery session management
+Desktop Super Admin GUI (desktop/super_admin/)
+PyQt6 application for system administrators
+Key Features:
+Real-time system health monitoring (CPU/memory/network)
+HSM key management interface
+Emergency revocation broadcast ("Revoke all IDs issued after X timestamp")
+Database backup/restore with progress visualization
+Audit trail exploration with filtering/sorting
+Target Users: ICT Authority system administrators, ODPC auditors
+CLI Tools (cli/)
+Admin CLI:
+bash
+12345678
+# Issue digital ID to citizen
+cz-admin id issue --id-number 12345678 --reason "Lost physical card"
+
+# Revoke compromised ID
+cz-admin id revoke --id-number 12345678 --reason "Device theft reported"
+
+# Export audit trail
+cz-admin audit export --start-date 2026-01-01 --end-date 2026-01-31 --format csv
+Ops CLI:
+bash
+12345678
+# Check system health
+cz-ops health check
+
+# Scale Celery workers during peak load
+cz-ops scale workers --biometric 20 --auth 10
+
+# Trigger database backup
+cz-ops backup database --retention 30
+🗺️ IMPLEMENTATION ROADMAP (PHASED APPROACH)
+Phase 0: Foundation (Months 1-2)
+Setup repository structure per comprehensive folder design
+Implement mock IPRS with 10,000 diverse citizen profiles
+Build core Flutter shared packages (citizen_zero_core, citizen_zero_ui)
+Deploy Kubernetes cluster with PostgreSQL/Redis/MinIO
+Procure Thales Luna HSM + establish integration pipeline
+Phase 1: Core MVP (Months 3-6)
+Auth Service: JWT auth + rate limiting + mock IPRS integration
+Citizen Wallet MVP: Login → biometric setup → ID display (online only)
+ID Service: ISO 18013-5 payload generation + COSE signing (software keys)
+Basic verification flow: Online QR scan → server validation → result display
+Inclusion testing: USSD prototype with 50 feature phone users in Kakamega
+Phase 2: Biometrics & Offline (Months 7-10)
+Biometric Service: African demographic face matcher + liveness detection
+Celery workers: GPU-accelerated async processing pipeline
+Offline verification: Dynamic QR + cached public keys + revocation checking
+Secure Enclave integration: Hardware-backed key storage (Android/iOS)
+Disability testing: Partner with UDPK for adaptive biometric validation
+Phase 3: Ecosystem Integration (Months 11-14)
+Verifier App: Police/bank agent workflows + offline mode
+USSD Gateway: SMPP integration with Safaricom/Airtel
+Web Dashboards: Admin + Employer + Worker portals
+Desktop Super Admin: PyQt6 system management GUI
+CLI Tools: Admin + Ops command-line interfaces
+Phase 4: Pilot Deployment (Months 15-18)
+Kisumu County pilot (1.2M population)
+50 police verifier tablets deployed in zero-connectivity zones
+3 Huduma Centre kiosks with offline tablets
+M-PESA integration for customer verification (not agent onboarding)
+Independent inclusion audit by KNCHR + Nubian Rights Forum
+Phase 5: National Scale (Months 19-24)
+Parliamentary approval of Section 8A legislative firewall
+Rollout to all 47 counties with county-specific inclusion testing
+Bank KYC integration (Equity, KCB) with CBK-approved liability framework
+Public transparency dashboard launch
+Pan-African standards contribution to AU Interoperability Framework
+🧪 TESTING & VALIDATION REQUIREMENTS
+Inclusion Testing Protocol (Pre-Launch Mandatory)
+Feature Phone Testing:
+Recruit 200 users with Nokia 3310/Samsung E2202 across 5 counties
+Task: Complete full recovery flow via USSD without assistance
+Pass criteria: 90% success rate; median time <5 minutes
+Disability Testing:
+Partner with United Disabled Persons of Kenya (UDPK)
+Test liveness flow with 50 users across visual/motor/speech impairments
+Pass criteria: 100% completion with adaptive mode; satisfaction ≥4/5
+Rural Offline Testing:
+Deploy verifier tablets in 3 zero-connectivity zones (Turkana North, Mandera East, Wajir South)
+Conduct 500 verification attempts with no network for 72 hours
+Pass criteria: 95% success rate; <10 second median verification time
+Demographic Parity Testing:
+Measure FAR/FRR across skin tone cohorts (Fitzpatrick I-VI)
+Pass criteria: Max 0.5% disparity between darkest/lightest skin tones
+Security Validation
+Annual penetration testing by independent firm (published publicly)
+Algorithmic bias audit quarterly by civil society board
+HSM key ceremony with ODPC + Law Society of Kenya witnesses
+Disaster recovery drill quarterly (simulate Nairobi region failure)
+📊 SUCCESS METRICS
+Metric
+Baseline (Current System)
+Citizen-Zero Target
+Measurement Method
+ID recovery time
+28 days
+<5 minutes
+System logs + user surveys
+Offline verification success
+32% (rural areas)
+95%
+Verifier app analytics
+Feature phone inclusion
+0% (excluded)
+100% (USSD fallback)
+USSD session logs
+Biometric FAR disparity
+8.2% (dark vs light skin)
+<0.5%
+Quarterly bias audits
+Verification fraud rate
+2.1% (forged cards)
+<0.01%
+Fraud investigation reports
+Economic value unlocked
+KES 0
+KES 47B/year
+CBK transaction analysis
+🚨 CRITICAL CONSTRAINTS & RISKS
+Legal Constraints
+NO deployment without ODPC DPIA approval (Section 31, Data Protection Act)
+NO function creep without parliamentary amendment (proposed Section 8A)
+Physical cards must retain equal legal standing perpetually (avoid constitutional challenge)
+Technical Constraints
+NO software signing in production—all signatures must use HSM after Phase 1
+NO 1:N biometric searches—only 1:1 verification permitted (privacy safeguard)
+NO data leaving Kenya—all processing in Kenya-based Tier III data centers
+Inclusion Constraints
+NO launch without passing inclusion testing protocol (Section 8.3)
+NO degradation of service for feature phone users—USSD must match smartphone UX quality
+NO deployment in county without disability testing with local UDPK chapter
+✅ DELIVERABLES CHECKLIST
+By project completion, the repository citizen-zero/ must contain:
+Flutter Apps:
+citizen_wallet/ with Secure Enclave integration + offline verification
+verifier_app/ with offline validation + USSD token scanning
+Shared packages with 90%+ test coverage
+Backend Services:
+5 Django microservices with Dockerfiles + Kubernetes manifests
+Mock IPRS with 10,000+ diverse citizen profiles
+Celery workers with GPU acceleration pipeline
+HSM integration module (Thales Luna)
+Web Applications:
+Admin Dashboard (React) with real-time analytics
+Employer Portal with bulk KYC workflows
+Worker Dashboard with offline verification tools
+Desktop Application:
+PyQt6 Super Admin GUI with system monitoring + emergency controls
+CLI Tools:
+Admin CLI for citizen/ID management
+Ops CLI for system maintenance
+Infrastructure:
+Docker Compose for local development
+Kubernetes manifests for production deployment
+Terraform scripts for cloud provisioning
+Documentation:
+Architecture diagrams + API specs (OpenAPI 3.0)
+Inclusion testing reports + security audit results
+User guides in English + Swahili
+Testing:
+85%+ unit test coverage across all components
+End-to-end test suite for critical user journeys
+Performance tests simulating 1M concurrent users
+💡 FINAL GUIDING PRINCIPLE
+"Build with the excluded—not for them."
+— Nubian Rights Forum
+Every architectural decision must pass the Kakamega Grandmother Test:
+Can a 68-year-old grandmother in Kakamega with a Nokia 105 recover her identity in <5 minutes without assistance?
+If the answer is no—redesign the feature.
+Citizen-Zero succeeds only if it serves all 47 million Kenyans—not just the tech-savvy in Nairobi. This is identity as a constitutional right, not a privilege for smartphone owners.
+Build accordingly. 🇰🇪

@@ -1,0 +1,28 @@
+data/
+│
+├── biometric_samples/                   # Biometric Samples
+│   ├── faces/                           # Face images
+│   │   ├── male/
+│   │   ├── female/
+│   │   └── diverse/                     # Diverse demographics
+│   ├── fingerprints/                    # Fingerprint images
+│   │   ├── left/
+│   │   └── right/
+│   └── iris/                            # Iris images
+│
+├── citizen_profiles/                    # Citizen Profiles
+│   ├── citizens.json                    # Citizen data
+│   ├── addresses.json                   # Address data
+│   └── contacts.json                    # Contact data
+│
+├── mock_iprs/                           # Mock IPRS Data
+│   ├── citizens.csv
+│   ├── biometrics.csv
+│   └── photos/
+│
+├── test_scenarios/                      # Test Scenarios
+│   ├── happy_path.json
+│   ├── edge_cases.json
+│   └── failure_modes.json
+│
+└── README.md                            # Test data guide
